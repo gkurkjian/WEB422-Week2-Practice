@@ -69,6 +69,8 @@
                                 `;
                                 //console.log(commentsList);  // will display the comments that user have clicked
 
+                                // Inside the querySelector() it's interpreting with id="commentsModal" and from the class="modal-body" that it's in Modal Window
+                                // The content of innerHTML represent the opening and closing tag and it'll set it to var commentsList.
                                 document.querySelector('#commentsModal .modal-body').innerHTML = commentsList;
 
                                 let modal = new bootstrap.Modal(document.getElementById('commentsModal'), {
