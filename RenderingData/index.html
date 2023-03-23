@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap 5.1 CSS-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap 5.1 JS Bundle -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+        // This function will fetch the data from the url
+        function populatePostTable(userId = null) {
+            let url = +userId // attempt to convert userId to a number
+            ? `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+            : `https://jsonplaceholder.typicode.com/posts`;
+
+            // Fetching the URL and displaying as a json
+            fetch(url)
+                .then((res) => res.json())
+                .then((data) => {
+                    //console.log(data);  // Here will display each data it's coming from the URL in our consol
+
+                    // Here each data from the url it's getting displaying by its Id, userId, title and body
+                    let postRows = `
+                    ${data.map(post => (
+                        `<tr data-id="${post?.id}">
+                        <td>${post?.userId}</td>
+                        <td>${post?.title}</td>
+                        <td>${post?.body}</td>
+                        </tr>`)).join("")}
+                    `;
+
+                    // Here we're selecting id=postTable from the table section and inside "tbody" we're pushing the info that it's coming from the URL 
+                    document.querySelector('#postTable tbody').innerHTML = postRows;
+                    //console.log(postRows);  // Here will display the data in console as we mentioned in the let postRows, which the info will be wrapped into <tr> and <td>
+
+                   // add the "click" event listener to the newly created rows
+                    document.querySelectorAll('#postTable tbody tr').forEach((rows) => {
+                    rows.addEventListener('click', (e) => {
+                        let id = rows.getAttribute("data-id");  // This will getAttribute of the data-id number
+                        console.log(`Clicked on id: ${id}`);
+
+                        fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`).then(res=>res.json().then(data => {
+                            //console.log(data);  // Whatever id we clicked, will console.log() the comments in console
+
+                            let commentsList = `
+                                <ul class="list-group">
+                                    ${data.map(comment => (`
+                                    <li class="list-group-item">
+                                        ${comment.body}<br /><br />
+                                        <strong>Name:</strong> ${comment.name}<br />
+                                        <strong>Email:</strong> ${comment.email}<br />
+                                    </li>
+                                    `)).join('')}
+                                </ul>
+                                `;
+                                //console.log(commentsList);  // will display the comments that user have clicked
+
+                                document.querySelector('#commentsModal .modal-body').innerHTML = commentsList;
+
+                                let modal = new bootstrap.Modal(document.getElementById('commentsModal'), {
+                                backdrop: 'static',  // prevent the modal from closing when the backdrop is clicked on
+                                keyboard: false,  // This will prevent from the using the "esc" key to close the modal
+                                });
+
+                                modal.show();
+                        }))
+                    });
+                    });
+
+                });
+        }
+
+        // Execute when the DOM is 'ready'
+        document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM is ready');  // Should display this in console if everything it's right
+        populatePostTable();  // Fetching the data from the url
+
+        // This is eventListener of #searchForm
+        document.querySelector("#searchForm").addEventListener('submit', function(event) {
+            event.preventDefault();  // This when user enters in search bar, will prevent from loading the page
+            console.log('From Submitted');  // On user submit will display the 'Form Submitted' comment
+            let userIdValue = document.querySelector('#userId').value;  // populate the posts table with the userId value
+            console.log(`The user want to search id: ${userIdValue}`);  // This is just printing in console the value that user has entered
+            populatePostTable(userIdValue);  // Here the user will mention the number of id that wants to display and that number will sent to populatePostTable() function
+        })
+
+        });
+
+        //document.querySelector('#postsTable')
+    </script>
+
+    <title>WEB422 Client-side Rendering Data`</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Posts Dataset (WEB422)</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <form class="d-flex" id="searchForm">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="User ID (Number)"
+                id="userId"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <br />
+      
+      <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table table-hover table-striped" id="postTable">
+                    <thead>
+                        <tr>
+                            <th>User Id</th>
+                            <th>Title</th>
+                            <th>Body</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+
+      <!-- Modal Window -->
+      <div class="modal fade" tabindex="-1" id="commentsModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Comments</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

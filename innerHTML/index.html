@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>innerHTML</title>
+        <script>
+            function changeText() {
+                // Get the element by ID "myDiv"
+                var divElement = document.getElementById('myDiv');
+
+                // Change the innerHTML of div to a new heading and paragraph
+                divElement.innerHTML = "<h1>Welcome to innerHTML</h1><p>This Is innerHTML Version of this page.</p>";
+            }
+        </script>
+    </head>
+    <body>
+        <div id="myDiv">
+            <h1>Hello World!</h1>
+            <p>Welcome to Hello World Page.</p>
+        </div>
+        <button onclick="changeText()">Change to innerHTML</button>
+    </body>
+</html>
