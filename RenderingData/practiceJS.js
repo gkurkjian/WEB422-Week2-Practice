@@ -25,12 +25,12 @@
 // console.log(list);
 
 
-//// Dealing with the names and displaying it in Unordered list and List and etc. 
-////Like <ul><li>Brat</li><li>Michael</li><li>George</li><li>Kukulani</li></ul>
-
-let names = ["Brat", "Michael", "George", "Kukulani"];
-// Will display the names in plus we'll push it into the <li> that we can deal with it
-let list = `<ul>${names.map(name => `<li>${name}</li>`).join("")}</ul>`
-
-
-console.log(list);  //<ul><li>Brat</li><li>Michael</li><li>George</li><li>Kukulani</li></ul>
+// //// Dealing with the names and displaying it in Unordered list and List and etc. 
+// ////Like <ul><li>Brat</li><li>Michael</li><li>George</li><li>Kukulani</li></ul>
+// 
+// let names = ["Brat", "Michael", "George", "Kukulani"];
+// // Will display the names in plus we'll push it into the <li> that we can deal with it
+// let list = `<ul>${names.map(name => `<li>${name}</li>`).join("")}</ul>`
+// 
+// 
+// console.log(list);  //<ul><li>Brat</li><li>Michael</li><li>George</li><li>Kukulani</li></ul>
