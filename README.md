@@ -18,5 +18,8 @@ The Posts has data of 100 rows and Comments has 500. On Each Post there are 5 Co
 ### The Purpose Of The Website
 When enter the website, it displayed dynamically fetched URL from the Posts. When user wanted to see the comments on that particular post, it has to click on the post and Modal will pop up and display the Comments. The Modal will not escape when press the "esc" button, only on X and close sign will take the procedure to quit from the Modal.
 
+### The Website
+https://web-422-week2-practice.vercel.app/
+
 ### Walkthrough Video
 [![Alt text](https://img.youtube.com/vi/uma1oMTIiC4/0.jpg)](https://www.youtube.com/watch?v=uma1oMTIiC4)
