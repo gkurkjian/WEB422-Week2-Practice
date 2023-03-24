@@ -13,7 +13,7 @@ This project is a web application that retrieves and displays data from the JSON
 
 ### Getting Started
 All the component of ths website it's used Bootstrap 5.1 in order to be fully Responsive and functioning well on multiple devices.
-If you wish to check the source code, please view the RenderingData -> index.html file. The rest of folers/files are just for practicing purposes.
+If you wish to check the source code, please view the RenderingData -> index.html file. The rest of folders/files are just for practicing purposes.
 
 
 ### Posts & Comments
